@@ -1,0 +1,1 @@
+说明：直接启动com.xiniunet.StartApplication即可加载整个工程
