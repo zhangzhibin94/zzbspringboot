@@ -2,13 +2,15 @@ package com.xiniunet.controller;
 
 import com.xiniunet.domain.User;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 //@RestController = @Controller + @ResponseBody
-@RestController
+@Controller
 @EnableAutoConfiguration
 public class DemoController {
 
@@ -25,14 +27,14 @@ public class DemoController {
     }
     //@RequestMapping此注解中参数path为具体的访问路径，此方法路径即为localhost:8080/123/333,
     //参数method限制请求方法（非必须），method包含get、post等
-    @RequestMapping(path="/{city_id}/{people_id}",method = RequestMethod.GET)
+    /*@RequestMapping(path="/{city_id}/{people_id}",method = RequestMethod.GET)
     public Map<String,String> testGet(@PathVariable("city_id")String cityId,
                                       @PathVariable("people_id")String peopleId){
         Map<String,String> people = new HashMap<>();
         people.put("cityId:",cityId);
         people.put("PeopleId:",peopleId);
         return people;
-    }
+    }*/
     @GetMapping(value = "/v1/pages_user")
     public Map<Object,Object> getUser(@RequestParam(defaultValue = "0",name = "pages") int from,int size){
         Map<Object,Object> people = new HashMap<>();
@@ -78,6 +80,19 @@ public class DemoController {
         Map<Object,Object> people = new HashMap<>();
         people.put("id:",request.getParameter("id"));
         return people;
+    }
+    @PostMapping("test_json")
+    public Object testJson(){
+        User user = new User();
+        user.setAddress("aaa");
+        user.setPwd("123456");
+        user.setAges(11);
+        user.setCreationTime(new Date());
+        return user;
+    }
+    @RequestMapping(value = "/api/index")
+    public String indexMap(){
+        return "index";
     }
     /*public static void main(String[] args) {
         SpringApplication.run(DemoController.class,args);
