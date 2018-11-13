@@ -1,6 +1,8 @@
 package com.xiniunet.controller;
 
+import com.xiniunet.domain.ServerSettings;
 import com.xiniunet.domain.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -89,6 +91,13 @@ public class DemoController {
         user.setAges(11);
         user.setCreationTime(new Date());
         return user;
+    }
+    @Autowired
+    private ServerSettings serverSettings;
+    @GetMapping("/test_properties")
+    @ResponseBody
+    public Object testProperties(){
+        return serverSettings;
     }
     @RequestMapping(value = "/api/index")
     public String indexMap(){
