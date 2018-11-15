@@ -85,6 +85,7 @@ public class DemoController {
     }
     @PostMapping("test_json")
     public Object testJson(){
+
         User user = new User();
         user.setAddress("aaa");
         user.setPwd("123456");
