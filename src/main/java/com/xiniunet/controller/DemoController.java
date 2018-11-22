@@ -16,11 +16,11 @@ import java.util.Map;
 @EnableAutoConfiguration
 public class DemoController {
 
-    @RequestMapping("/")
+    /*@RequestMapping("/")
     @ResponseBody
     String home(){
         return "Hello world";
-    }
+    }*/
     @RequestMapping("/test")//由于使用了@RestController就可以省去@ResponseBody将返回结果转为json
     public Map<String,String> testMap(){
         Map<String,String> people = new HashMap<>();
@@ -75,7 +75,7 @@ public class DemoController {
     /**
      * 与servlet中的request相同，可以从键值对中获取具体的value值
      * @param request
-     * @return
+     * @returnindex
      */
     @PostMapping(value = "get_request")
     public Object testRequest(HttpServletRequest request){
