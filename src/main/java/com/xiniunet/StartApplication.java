@@ -1,5 +1,6 @@
 package com.xiniunet;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -14,7 +15,7 @@ import javax.servlet.MultipartConfigElement;
 @EnableAutoConfiguration
 @ComponentScan*/
 @SpringBootApplication
-@ServletComponentScan//自动扫面自定义servlet、filter、listener等
+@MapperScan("com.xiniunet.mapper")
 public class StartApplication {
     public static void main(String[] args) {
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiniunet.mapper.UserMapper" >
+  <resultMap id="baseResultMap" type="com.xiniunet.domain.User">
+    <id column="ID" jdbcType="NUMERIC" property="id"></id>
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName"></result>
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password"></result>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, operation, operationtime, operationuserid, ip, logcontent, createduserid, createddate
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_sys_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <select id="insert" resultType="java.lang.Long" >
+    INSERT INTO USER (
+    ID,
+    NAME,
+    PASSWORD,
+    EMAIL,
+    USER_NAME,
+    PHONE,
+    IS_DELETED,
+    ROW_VERSION,
+    CREATION_TIME,
+    LAST_UPDATE_TIME
+    )
+    values (
+      #{request.id},
+      #{request.name},
+      #{request.password},
+      #{request.email},
+      #{request.userName},
+      #{request.phone},
+      0,
+      0,
+      SYSDATE(),
+      SYSDATE()
+    )
+  </select>
+  <select id="find" resultMap="baseResultMap">
+    SELECT ID,USER_NAME,PASSWORD FROM USER
+    WHERE
+    IS_DELETED = 0
+    <if test="request.id!=null">
+      AND ID = #{request.id}
+    </if>
+
+  </select>
+</mapper>

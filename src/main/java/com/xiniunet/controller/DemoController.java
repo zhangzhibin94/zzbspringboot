@@ -2,6 +2,8 @@ package com.xiniunet.controller;
 
 import com.xiniunet.domain.ServerSettings;
 import com.xiniunet.domain.User;
+import com.xiniunet.mapper.UserMapper;
+import com.xiniunet.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -10,11 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 //@RestController = @Controller + @ResponseBody
 @Controller
 @EnableAutoConfiguration
 public class DemoController {
+    @Autowired
+   private UserService userService;
 
     /*@RequestMapping("/")
     @ResponseBody
@@ -83,16 +88,7 @@ public class DemoController {
         people.put("id:",request.getParameter("id"));
         return people;
     }
-    @PostMapping("test_json")
-    public Object testJson(){
 
-        User user = new User();
-        user.setAddress("aaa");
-        user.setPwd("123456");
-        user.setAges(11);
-        user.setCreationTime(new Date());
-        return user;
-    }
     @Autowired
     private ServerSettings serverSettings;
     @GetMapping("/test_properties")
@@ -107,4 +103,18 @@ public class DemoController {
     /*public static void main(String[] args) {
         SpringApplication.run(DemoController.class,args);
     }*/
+    @RequestMapping("/insert_user")
+    @ResponseBody
+    public Object inserUser(){
+        User user = new User();
+        user.setId(9993l);
+        user.setPassword("zzb123456");
+        user.setName("lisi");
+        user.setPhone(1323412142l);
+        user.setUserName("zhangsan");
+        /*long l = userService.insertUser(user);*/
+        List<User> userList = userService.findUser(user);
+        /*System.out.println(l);*/
+        return userList;
+    }
 }

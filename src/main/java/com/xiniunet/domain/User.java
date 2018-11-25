@@ -9,14 +9,20 @@ import java.util.Date;
 
 public class User implements Serializable {
 
-    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Long id;
     private String name;
-    private Integer ages;
-    private String address;
-    @JsonIgnore
-    private String pwd;
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",locale = "zh",timezone = "GMT+8")
-    private Date creationTime;
+    private String password;
+    private String email;
+    private String userName;
+    private Long phone;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -26,35 +32,35 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public Integer getAges() {
-        return ages;
+    public String getPassword() {
+        return password;
     }
 
-    public void setAges(Integer ages) {
-        this.ages = ages;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public Date getCreationTime() {
-        return creationTime;
+    public Long getPhone() {
+        return phone;
     }
 
-    public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
+    public void setPhone(Long phone) {
+        this.phone = phone;
     }
 }
