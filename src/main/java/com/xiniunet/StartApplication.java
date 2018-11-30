@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.util.unit.DataSize;
 
 import javax.servlet.MultipartConfigElement;
@@ -16,6 +18,8 @@ import javax.servlet.MultipartConfigElement;
 @ComponentScan*/
 @SpringBootApplication
 @MapperScan("com.xiniunet.mapper")
+@EnableScheduling//开启定时任务
+@EnableAsync//开启异步
 public class StartApplication {
     public static void main(String[] args) {
 
