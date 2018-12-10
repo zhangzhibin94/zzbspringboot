@@ -2,9 +2,603 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>京西(JX.COM)-正品低价、品质保障、配送及时、轻松购物！</title>
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="icon" href="favicon.ico">
+    <script src="script/angular.min.js"></script>
+    <script src="script/index.js"></script>
 </head>
 <body>
-    <h1>Hello world</h1>
+<div ng-app="App">
+    <div ng-controller="IndexController">
+        <!--顶部登陆信息栏开始-->
+        <div class="nav-site" ng-init="show=false">
+            <div class="w">
+                <div class="fl" ng-mouseenter="show=true" ng-mouseleave="show=false">
+                    <div class="nav-site-send">
+                        送至：北京
+                        <i><s>◇</s></i>
+                    </div>
+                    <div class="nav-site-send-detail" ng-show="show">
+                        <span>天津</span><br>
+                        <span>天津</span><br><span>天津</span><br><span>天津</span>
+                    </div>
+
+                </div>
+                <div class="fr">
+                    <div class="nav-site-r">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    你好，请登录
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="col-red">
+                                    免费注册
+                                </a>
+                            </li>
+                            <li class="line"></li>
+                            <li href="#">
+                                <a href="">我的订单</a>
+                            </li>
+                            <li class="line"></li>
+                            <li class="fore" href="#">
+                                <a href="">我的水滴</a>
+                                <i><s>◇</s></i>
+                            </li>
+                            <li class="line"></li>
+                            <li>
+                                <a href="">
+                                    水滴会员
+                                </a>
+                            </li>
+                            <li class="line"></li>
+                            <li class="fore" href="#">
+                                <a href="">
+                                    企业采购
+                                </a>
+                                <i><s>◇</s></i>
+                            </li>
+                            <li class="line"></li>
+                            <li class="fore" href="#">
+                                客户服务
+                                <i><s>◇</s></i>
+                            </li>
+                            <li class="line"></li>
+                            <li class="fore" href="#">
+                                网站导航
+                                <i><s>◇</s></i>
+                            </li>
+                            <li class="line"></li>
+                            <li class="fore jd-icon" href="#">
+                                <span></span>
+                                手机水滴
+                                <i><s>◇</s></i>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--顶部登陆信息栏结束-->
+        <!--顶部广告栏开始-->
+        <div class="top-banner" ng-init="showBanner = true" ng-show="showBanner">
+            <div class="w tb">
+                <a href="#">
+                    <img src="images/topBanner.jpg" alt="">
+                </a>
+                <!--顶端广告栏关闭按钮-->
+                <a class="banner-close" href="#" ng-click="showBanner=false">
+                </a>
+            </div>
+        </div>
+        <!--顶部广告栏结束-->
+        <!--搜索栏开始-->
+        <div class="w clearfix">
+            <div class="search-logo">
+                <a href="#">
+                    <span class="search-logo-title"><strong>水滴购物网</strong></span>
+                </a>
+            </div>
+            <div class="search-input">
+                <input type="text">
+                <button value="搜索">搜索</button>
+            </div>
+            <div class="search-cart">
+                <a href="#">
+                    我的购物车
+                </a>
+                <i class="icon-cart">
+                </i>
+                <i class="icon-cart-gt">
+                    &gt;
+                </i>
+                <i class="icon-cart-quantity">
+                    8
+                </i>
+            </div>
+            <div class="search-moreLinks">
+                <a href="#" class="first-link"> 美酒结婚季</a>
+                <a href="#">新品手机</a>
+                <a href="#">新品手机</a>
+                <a href="#">拉杆箱</a>
+                <a href="#">0元试用</a>
+                <a href="#">新品首发</a>
+                <a href="#">万店4免1</a>
+                <a href="#"> 限时抢券</a>
+            </div>
+        </div>
+        <!--快捷导航栏-->
+        <div class="shortcut-nav">
+            <div class="w">
+                <!--展示分类-->
+                <div class="shortcut-nav-menu">
+                    <div class="shortcut-nav-menu-all">
+                        <a href="#">全部商品分类</a>
+                    </div>
+                    <div class="shortcut-nav-menu-one">
+                        <div class="item">
+                            <a href="#">家用电器</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">手机/运营商/数码</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">电脑/办公</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">家居/家具/家装/厨具</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">男装/女装/童装/内衣</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">美妆/个人清洁/宠物</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">女鞋/箱包/钟表/珠宝</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">男鞋/运动/户外</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">房产/汽车/汽车用品</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">母婴/玩具用品</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">食品/酒类/生鲜/特产</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">艺术/礼品鲜花/绿植</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">医药保健/计生情趣</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">图书/文娱/电子书</a>
+                            <i>></i>
+                        </div>
+                        <div class="item">
+                            <a href="#">理财/众筹/生活</a>
+                            <i>></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="shortcut-nav-items">
+                    <ul>
+                        <li><a href="#">秒杀</a></li>
+                        <li><a href="#">优惠券</a></li>
+                        <li><a href="#">会员</a></li>
+                        <li><a href="#">闪购</a></li>
+                        <li><a href="#">拍卖</a></li>
+                        <li><a href="#">水滴服饰</a></li>
+                        <li><a href="#">水滴超市</a></li>
+                        <li><a href="#">生鲜</a></li>
+                        <li><a href="#">全球购</a></li>
+                    </ul>
+                </div>
+                <div class="shortcut-nav-imgs" ng-show="false">
+                    <a href="#">
+                        <img src="images/img2.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--搜索栏结束-->
+        <!--主体部分开始-->
+        <div class="w clearfix">
+            <div class="main-slider">
+                <a href="#">
+                    <img src="images/slider.jpg" alt="">
+                </a>
+                <ul>
+                    <li ng-class="current=='1'?'current':'noCurrent'" ng-click="changePages('1')" ng-model="current">1
+                    </li>
+                    <li ng-class="current=='2'?'current':'noCurrent'" ng-click="changePages('2')" ng-model="current">2
+                    </li>
+                    <li ng-class="current=='3'?'current':'noCurrent'" ng-click="changePages('3')" ng-model="current">3
+                    </li>
+                    <li ng-class="current=='4'?'current':'noCurrent'" ng-click="changePages('4')" ng-model="current">4
+                    </li>
+                    <li ng-class="current=='5'?'current':'noCurrent'" ng-click="changePages('5')" ng-model="current">5
+                    </li>
+                </ul>
+                <div class="arrow">
+                    <a href="javascript:void(0)" class="arrow-prev"><</a>
+                    <a href="javascript:void(0)" class="arrow-next">&gt;</a>
+                </div>
+            </div>
+            <div class="main-news">
+                <div class="main-news-top">
+                    <div class="main-news-top-faster">
+                        <div class="main-news-top-faster-title">
+                            <h2>新闻摘要</h2>
+                            <a href="#">更多 ></a>
+                        </div>
+                        <div class="main-news-top-faster-content">
+                            <ul>
+                                <li><a href="#">纪念马克思诞辰200周年大会举行</a></li>
+                                <li><a href="#">习近平同安倍晋三通电话 </a></li>
+                                <li><a href="#"> 青春箴言 那年 我们21</a></li>
+                                <li><a href="#">马恩视野中的"亚洲新纪元的曙光" 专题</a></li>
+                                <li><a href="#">中国人的故事|青年，新时代的奋斗者</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="main-news-top-money">
+                        <ul>
+                            <li>
+                                <a href="#">
+                                    <i></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon2"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon3"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon4"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon5"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon6"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon7"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon8"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon9"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon10"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon11"></i>
+                                    话费
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="main-news-top-money-icon12"></i>
+                                    话费
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="main-footer-advs">
+                <a href="">
+                    <img src="images/mainBottom.jpg" alt="">
+                </a>
+            </div>
+
+            <!--商品列表开始-->
+            <div class="item-list">
+                <div class="sd-main-item">
+                    <a href="" class="sk_item_lk">
+                        <div class="sk_item_img">
+                            <img src="https://img20.360buyimg.com/mobilecms/s140x140_jfs/t15052/361/2064850155/355372/3bd5c8db/5a695540Ne5d0ddbd.jpg!q90.webp"
+                                 alt="">
+                        </div>
+                        <p class="sk_item_name">
+                            飞利浦（Philips）AT610/14 电动剃须刀 三刀头
+                        </p>
+                        <div class="sk_item_price">
+                            <span class="mod_price sk_item_price_new">
+                                <i>￥</i>
+                                <span style="color: #ffffff">316.00</span>
+                            </span>
+                            <span class="sk_item_price_origin">
+                                <i>￥</i>
+                                <span >416.00</span>
+                            </span>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="sd-main-item">
+                    <a href="" class="sk_item_lk">
+                        <div class="sk_item_img">
+                            <img src="https://img13.360buyimg.com/mobilecms/s140x140_jfs/t3268/14/2855376539/252227/da7b30db/57e8cc89Ndfcfcc8e.jpg!q90.webp"
+                                 alt="">
+                        </div>
+                        <p class="sk_item_name">
+                            飞利浦（Philips）AT610/14 电动剃须刀 三刀头
+                        </p>
+                        <div class="sk_item_price">
+                            <span class="mod_price sk_item_price_new">
+                                <i>￥</i>
+                                <span style="color: #ffffff">316.00</span>
+                            </span>
+                            <span class="sk_item_price_origin">
+                                <i>￥</i>
+                                <span >416.00</span>
+                            </span>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="sd-main-item">
+                    <a href="" class="sk_item_lk">
+                        <div class="sk_item_img">
+                            <img src="https://img10.360buyimg.com/mobilecms/s140x140_jfs/t27784/164/303975144/270299/f9dc9df0/5b8e265cN3effa4cf.jpg!q90.webp"
+                                 alt="">
+                        </div>
+                        <p class="sk_item_name">
+                            飞利浦（Philips）AT610/14 电动剃须刀 三刀头
+                        </p>
+                        <div class="sk_item_price">
+                            <span class="mod_price sk_item_price_new">
+                                <i>￥</i>
+                                <span style="color: #ffffff">316.00</span>
+                            </span>
+                            <span class="sk_item_price_origin">
+                                <i>￥</i>
+                                <span >416.00</span>
+                            </span>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="sd-main-item">
+                    <a href="" class="sk_item_lk">
+                        <div class="sk_item_img">
+                            <img src="https://img11.360buyimg.com/mobilecms/s140x140_jfs/t29236/228/574442341/91219/a234c36a/5bf7c5e4Ne1990bec.jpg!q90.webp"
+                                 alt="">
+                        </div>
+                        <p class="sk_item_name">
+                            飞利浦（Philips）AT610/14 电动剃须刀 三刀头
+                        </p>
+                        <div class="sk_item_price">
+                            <span class="mod_price sk_item_price_new">
+                                <i>￥</i>
+                                <span style="color: #ffffff">316.00</span>
+                            </span>
+                            <span class="sk_item_price_origin">
+                                <i>￥</i>
+                                <span >416.00</span>
+                            </span>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="sd-main-item">
+                    <a href="" class="sk_item_lk">
+                        <div class="sk_item_img">
+                            <img src="https://img14.360buyimg.com/mobilecms/s140x140_jfs/t11860/29/2374559932/118569/733bfbd4/5a694954Nb38893a3.jpg!q90.webp"
+                                 alt="">
+                        </div>
+                        <p class="sk_item_name">
+                            飞利浦（Philips）AT610/14 电动剃须刀 三刀头
+                        </p>
+                        <div class="sk_item_price">
+                            <span class="mod_price sk_item_price_new">
+                                <i>￥</i>
+                                <span style="color: #ffffff">316.00</span>
+                            </span>
+                            <span class="sk_item_price_origin">
+                                <i>￥</i>
+                                <span >416.00</span>
+                            </span>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="sd-main-item">
+                    <a href="" class="sk_item_lk">
+                        <div class="sk_item_img">
+                            <img src="https://img14.360buyimg.com/mobilecms/s140x140_jfs/t25123/338/630158407/83187/69c1ea41/5b763f99N507649ed.jpg!q90.webp"
+                                 alt="">
+                        </div>
+                        <p class="sk_item_name">
+                            飞利浦（Philips）AT610/14 电动剃须刀 三刀头
+                        </p>
+                        <div class="sk_item_price">
+                            <span class="mod_price sk_item_price_new">
+                                <i>￥</i>
+                                <span style="color: #ffffff">316.00</span>
+                            </span>
+                            <span class="sk_item_price_origin">
+                                <i>￥</i>
+                                <span >416.00</span>
+                            </span>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!--商品列表结束-->
+        </div>
+        <!--主体部分结束-->
+        <!--footer开始-->
+        <div class="footer">
+            <div class="footer-top">
+                <div class="footer-top-slogen">
+            <span class="footer-top-slogen-icon footer-top-slogen-icon1">
+                <img src="images/slogan1.png" alt="">
+            </span>
+                    <span class="footer-top-slogen-icon footer-top-slogen-icon2">
+                <img src="images/slogan2.png" alt="">
+            </span>
+                    <span class="footer-top-slogen-icon footer-top-slogen-icon3">
+                <img src="images/slogan3.png" alt="">
+            </span>
+                    <span class="footer-top-slogen-icon footer-top-slogen-icon4">
+                <img src="images/slogan4.png" alt="">
+            </span>
+                </div>
+                <div class="w footer-top-shooping clearfix">
+                    <dl>
+                        <dt><a href="">购物指南</a></dt>
+                        <dd><a href="">购物流程</a></dd>
+                        <dd><a href="">会员介绍</a></dd>
+                        <dd><a href="">生活旅行</a></dd>
+                        <dd><a href="">常见问题</a></dd>
+                        <dd><a href="">大家电</a></dd>
+                        <dd><a href="">联系客服</a></dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="">配送方式</a></dt>
+                        <dd><a href="">上门自提</a></dd>
+                        <dd><a href="">211限时达</a></dd>
+                        <dd><a href="">配送服务查询</a></dd>
+                        <dd><a href="">配送费收取标准</a></dd>
+                        <dd><a href="">海外配送</a></dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="">支付方式</a></dt>
+                        <dd><a href="">货到付款</a></dd>
+                        <dd><a href="">在线支付</a></dd>
+                        <dd><a href="">分期付款</a></dd>
+                        <dd><a href="">邮局汇款</a></dd>
+                        <dd><a href="">公司转账</a></dd>
+                    </dl>
+                    <dl>
+                        <dt><a href="">售后服务</a></dt>
+                        <dd><a href="">售后政策</a></dd>
+                        <dd><a href="">价格保护</a></dd>
+                        <dd><a href="">退款说明</a></dd>
+                        <dd><a href="">返修/退换货</a></dd>
+                        <dd><a href="">取消订单</a></dd>
+                    </dl>
+                    <dl class="dl-last">
+                        <dt><a href="">特色服务</a></dt>
+                        <dd><a href="">夺宝岛</a></dd>
+                        <dd><a href="">DIY装机</a></dd>
+                        <dd><a href="">延保服务</a></dd>
+                        <dd><a href="">水滴E卡</a></dd>
+                        <dd><a href="">水滴通信</a></dd>
+                        <dd><a href="">水滴JD+</a></dd>
+                    </dl>
+                    <!--左下角地图背景-->
+                    <div class="coverage">
+                        <h5>水滴自营覆盖区县</h5>
+                        <p class="mod_help_cover_con">水滴已向全国2661个区县提供自营配送服务，支持货到付款、POS机刷卡和售后上门服务。</p>
+                        <p class="mod_help_cover_more">
+                            <a href="#">查看详情></a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="footer-bottom">
+                <div class="w footer-bottom-links">
+                    <a href="#">关于我们</a>
+                    <span>|</span>
+                    <a href="#">联系我们</a>
+                    <span>|</span>
+                    <a href="#">联系客服</a>
+                    <span>|</span>
+                    <a href="#">合作招商</a>
+                    <span>|</span>
+                    <a href="#">商家帮助</a>
+                    <span>|</span>
+                    <a href="#">营销中心</a>
+                    <span>|</span>
+                    <a href="#">友情链接</a>
+                    <span>|</span>
+                    <a href="#">销售联盟</a>
+                    <span>|</span>
+                    <a href="#">风险监测</a>
+                    <span>|</span>
+                    <a href="#">隐私政策</a>
+                    <span>|</span>
+                    <a href="#">水滴公益</a>
+                </div>
+                <div class="w footer-bottom-copyright">
+                    <p><img src="images/guohui.png" alt="">京公网安备
+                        11000002000088号|京ICP证070359号|互联网药品信息服务资格证编号(京)-经营性-2014-0008|新出发京零 字第大120007号 <br>
+                        互联网出版许可证编号新出网证(京)字150号|出版物经营许可证|网络文化经营许可证京网文[2014]2148-348号|违法和不良信息举报电话：4006561155<br>
+                        Copyright © 2004 - 2018 水滴JD.com 版权所有|消费者维权热线：4006067733经营证照</p>
+                </div>
+                <div class="w footer-bottom-pictures">
+                    <a href=""><img src="images/img1.jpg" alt=""></a>
+                    <a href=""><img src="images/img1.jpg" alt=""></a>
+                    <a href=""><img src="images/img1.jpg" alt=""></a>
+                    <a href=""><img src="images/img1.jpg" alt=""></a>
+                    <a href=""><img src="images/img1.jpg" alt=""></a>
+                    <a href=""><img src="images/img1.jpg" alt=""></a>
+                </div>
+            </div>
+        </div>
+        <!--footer结束-->
+    </div>
+</div>
+
 </body>
 </html>

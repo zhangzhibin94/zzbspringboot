@@ -1,0 +1,319 @@
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    src: url('../fonts/glyphicons-halflings-regular.eot');
+    src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+
+body{
+    background: rgb(240,242,244) !important;
+    height:100%;
+    width:100%;
+    overflow-y: scroll
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+}
+textarea {/*防止多行文本框拖动*/
+    resize: none;
+}
+img {/*  去掉图片低测默认的3像素空白缝隙*/
+    border: 0;
+    vertical-align: middle;
+}
+table {
+    border-collapse: collapse;			/*合并外边线*/
+}
+.w{
+    width: 368px;
+    margin: 0 auto;
+    min-width: 368px;
+}
+.top{
+    margin-top: 60px;
+    padding: 10px 21px;
+}
+.f-left{
+    float: left;
+}
+.f-right{
+    float: right;
+}
+.login-title{
+    margin-left: 16px;
+    font-size: 32px;
+    color: #777;
+    font-family: "Microsoft YaHei";
+    font-weight: 600;
+    line-height: 60px;
+}
+.description{
+    font-size: 14px;
+    color: rgba(0,0,0,.45);
+    margin-bottom: 30px;
+    padding-left: 32px;
+}
+.main-login{
+    width: 368px;
+    margin: 0 auto;
+}
+.main-login-title{
+    width: 250px;
+    height: 45px;
+    margin: 0 auto;
+    font-size: 14px;
+    color: rgba(0,0,0,.45);
+    font-weight: 500;
+}
+.login-username{
+    margin-right: 32px ;
+    padding: 12px 16px;
+    display: inline-block;
+    cursor: pointer;
+}
+.login-phone{
+    padding: 12px 13px;
+    display: inline-block;
+    cursor: pointer;
+}
+.login-phone:hover{
+    color: rgb(24 156 252);
+}
+.active{
+    color: rgb(24 156 252);
+    border-bottom: 2px solid rgb(24 156 252);
+}
+.user{
+     width: 100%;
+    margin: 24px 2px;
+    height: 105px;
+ }
+.username{
+    line-height: 40px;
+    position: relative;
+    height: 40px;
+}
+.username-temp{
+    position: absolute;
+    width: 100%;
+}
+.username .username-input{
+    width: 90%;
+    margin: 0 auto;
+    padding-left: 40px;
+    height: 40px;
+
+}
+.username-icon{
+    position: absolute;
+    left: 30px;
+    color: rgba(0,0,0,.45);
+}
+.password{
+    margin-top: 24px;
+    height: 40px;
+    position: relative;
+}
+.password .username-input{
+    width: 90%;
+    margin: 0 auto;
+    padding-left: 40px;
+    height: 40px;
+
+}
+.password-temp{
+    position: absolute;
+    width: 100%;
+}
+.password-icon{
+    position: absolute;
+    left: 30px;
+    color: rgba(0,0,0,.45);
+    top: 12px;
+}
+
+.phone{
+    width: 100%;
+    margin: 24px 2px;
+    height: 105px;
+}
+.phone-number{
+    line-height: 40px;
+    position: relative;
+    height: 40px;
+}
+.phone-temp{
+    position: absolute;
+    width: 100%;
+}
+.phone-number .phone-input{
+    width: 90%;
+    margin: 0 auto;
+    padding-left: 40px;
+    height: 40px;
+}
+.phone-icon{
+    position: absolute;
+    left: 30px;
+    color: rgba(0,0,0,.45);
+}
+.auto-login{
+    margin-top: 24px;
+    display:flex;
+    align-items:center;/*垂直居中*/
+}
+.auto-login-checkbox{
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    border: 1px solid #69f;
+    background: #ffffff;
+}
+.auto-login .checkbox-click{
+    background: #69f !important;
+}
+.auto-login-icon{
+    font-size: 14px;
+    color: #ffffff;
+    display: inline-block;
+}
+.auto-login-txt{
+    padding-left: 8px;
+}
+.forget-pwd{
+    margin-left: auto;
+    color: rgb(33,150,243);
+}
+.login{
+    margin-top: 24px;
+    width: 90%;
+    margin: 0 auto;
+}
+.mt-24{
+    margin-top: 24px;
+}
+.zzb-cursor{
+    cursor: pointer;
+}
+.third-login{
+    display:flex;
+    align-items:center;/*垂直居中*/
+}
+.third-login-wechat{
+    display: inline-block;
+    margin-left: 16px;
+    background: url("../images/tentcent.png") no-repeat -29px -102px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+.third-login-qq{
+    display: inline-block;
+    margin-left: 16px;
+    background: url("../images/tentcent.png") no-repeat -65px -58px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+}
+.third-login-register{
+    margin-left: auto;
+    color: rgb(33,150,243);
+    cursor: pointer;
+}
+.footer{
+    width: 90%;
+    margin: 0 auto;
+}
+.copy-right{
+    margin: 48px 0 0px 0;
+    text-align: center;
+    color: rgba(0,0,0,.45);
+    padding-bottom: 24px;
+
+}
+.password .password-temp .verification-code{
+
+    display: inline-block;
+
+}
+.post-code{
+    width: 31%;
+    display: inline-block;
+    margin-left: 15px;
+    text-align: center;
+    height: 40px;
+    cursor: pointer;
+}
+input[readonly],.form-control[readonly]{
+    background-color: #ffffff;
+}
+.display-inline-block{
+    display: inline-block;
+}
+.username-input-parent{
+    width: 55%;
+    display: inline-block;
+    margin-left: 15px;
+}
+.mt-15{
+    margin-top: 15px;
+}
+.main-content{
+    width: 90%;
+    margin: 0 auto;
+}
+.register-title-description{
+    font-size: 16px;
+    font-family: "Microsoft YaHei";
+}
+ .register-telephone{
+    margin-top: 15px;
+    height: 40px;
+}
+ .register-pwd{
+    margin-top: 24px;
+    height: 40px;
+}
+ .register-checkCode{
+    margin-top: 24px;
+    height: 40px;
+}
+.register-telephone-input{
+    height: 40px;
+}
+.register-pwd-input{
+    height: 40px;
+}
+.register-checkCode-input{
+    height: 40px;
+}
+ .register-code{
+    display: inline-block;
+}
+.register-input-parent {
+    width: 65%;
+    display: inline-block;
+}
+.register-post-code{
+    width: 25%;
+    display: inline-block;
+    margin-left: 15px;
+    text-align: center;
+    height: 40px;
+    cursor: pointer;
+}
+.has-login-info{
+    float: right;
+    color: #39f;
+    font-size: 14px;
+    line-height: 34px;
+    cursor: pointer;
+}

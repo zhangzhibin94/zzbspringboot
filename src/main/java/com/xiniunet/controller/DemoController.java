@@ -1,16 +1,21 @@
 package com.xiniunet.controller;
 
+import com.aliyuncs.exceptions.ClientException;
+import com.xiniunet.domain.SendMessage;
 import com.xiniunet.domain.ServerSettings;
 import com.xiniunet.domain.User;
-import com.xiniunet.mapper.UserMapper;
+import com.xiniunet.service.ProdecerService;
 import com.xiniunet.service.UserService;
+import com.xiniunet.utils.AliyunMessageUtil;
+import org.apache.activemq.command.ActiveMQQueue;
+import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.Destination;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,11 +26,16 @@ public class DemoController {
     @Autowired
    private UserService userService;
 
-    /*@RequestMapping("/")
-    @ResponseBody
+    @Autowired
+    private ProdecerService prodecerService;
+
+    @Autowired
+    private AliyunMessageUtil aliyunMessageUtil;
+
+    @RequestMapping("/")
     String home(){
-        return "Hello world";
-    }*/
+        return "blog";
+    }
     @RequestMapping("/test")//由于使用了@RestController就可以省去@ResponseBody将返回结果转为json
     public Map<String,String> testMap(){
         Map<String,String> people = new HashMap<>();
@@ -65,7 +75,6 @@ public class DemoController {
 
     /**
      * 功能描述：从http头中获取参数
-     * @param token
      * @param id
      * @return
      */
@@ -105,7 +114,7 @@ public class DemoController {
     }*/
     @RequestMapping("/insert_user")
     @ResponseBody
-    public Object inserUser(){
+    public Object insertUser(){
         User user = new User();
         user.setId(9993l);
         user.setPassword("zzb123456");
@@ -116,5 +125,42 @@ public class DemoController {
         List<User> userList = userService.findUser(user);
         /*System.out.println(l);*/
         return userList;
+    }
+    //测试activeMQ queue发送并消费消息
+    /*@RequestMapping("/test_activemq")
+    @ResponseBody
+    public Object testActiveMQ(String msg){
+        Destination destination = new ActiveMQQueue("zzb.queue");
+        prodecerService.sendMessage(destination, msg);
+        return msg;
+    }*/
+    //测试activeMQ topic发送并消费消息
+    /*@RequestMapping("/test_activemq/topic")
+    @ResponseBody
+    public Object testActiveMQTopic(String msg){
+        Destination destination = new ActiveMQTopic("zzb.topic");
+        prodecerService.publish(destination, msg);
+        return msg;
+    }*/
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    /**
+     * 发送短信验证码
+     * @param sendMessage
+     * @return
+     * @throws ClientException
+     */
+    @RequestMapping("/send_check_code")
+    public Object sendCode(@RequestBody SendMessage sendMessage) throws ClientException {
+        Boolean sendSuccess = aliyunMessageUtil.sendVetifyMessage(sendMessage.getTelephone());
+        if(sendSuccess!=null){
+           if(sendSuccess){
+               return "index";
+           }
+        }
+        return null;
     }
 }

@@ -21,11 +21,11 @@ public class IndexController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     @Value("${server.port}")
     private String path;
-   @RequestMapping(value = "/api/v1/gopage")
+   /*@RequestMapping(value = "/api/v1/gopage")
    public Object index(){
        int i = 1/0;
        return "index";
-   }
+   }*/
     @RequestMapping(value = "/api/throw_exception")
    public Object tesetMyException(){
        throw new MyException("500","test throw exception");

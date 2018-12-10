@@ -1,14 +1,11 @@
 package com.xiniunet.domain;
 
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import java.io.Serializable;
 import java.util.Date;
 
 //@Document表示一条记录，对应索引名称为blog，索引类型为article
-@Document(indexName = "blog",type = "article")
+//@Document(indexName = "blog",type = "article")
 public class Article extends BaseDomain {
     private Long id;
     private String title;

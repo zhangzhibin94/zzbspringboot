@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>【基于OSS的上传文件页面】</title>
+    <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}"  media="all">
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.controller('myCtrl', function($scope) {
+            $scope.firstName = "John";
+            $scope.lastName = "Doe";
+        });
+    </script>
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        #group{
+            position: absolute;
+            left:580px;
+        }
+        #submit{
+            position: absolute;
+            top:140px;
+            left:580px;
+        }
+    </style>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div align="center">
+        <h2 style="color:orangered;">基于OSS的上传文件页面</h2>
+    </div>
+    <br/>
+    <img src="{{url}}" alt="">
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单点登录</title>
+    <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <script src="script/angular.min.js"></script>
+    <script src="script/sso.js"></script>
+</head>
+<body>
+    <div ng-app="sso">
+        <div ng-controller="LoginController">
+            <div class="w">
+                <div style="box-shadow: 0 2px 8px #bbb;">
+                    <div class="top">
+                        <img src="./images/logo-warter.png" class="logo f-left" alt="">
+                        <span style="" class="login-title">Water shopping</span>
+                    </div>
+                    <div class="description">
+                        <span>单点登录用于不同子系统之间的session共享</span>
+                    </div>
+                    <!--登录开始-->
+                    <div class="main-login" ng-show="vm.register==false">
+                        <div class="main-login-title">
+
+                            <div class="login-username " ng-class="{'active':vm.loginType=='username'}" ng-click="changeTab('username')">
+                                账号密码登录
+                            </div>
+                            <div class="login-phone" ng-class="{'active':vm.loginType=='phone'}" ng-click="changeTab('phone')">
+                                手机号登录
+                            </div>
+                        </div>
+                        <!--账号密码登录-->
+                        <div class="user" ng-if="vm.loginType=='username'">
+                            <div class="username">
+                                <div class="username-temp">
+                                    <input type="text" class="form-control username-input" name="username" placeholder="用户名：" ng-model="vm.username" ng-maxlength="50">
+                                </div>
+                                <div class="username-icon">
+                                    <span class="glyphicon glyphicon-user"></span>
+                                </div>
+                            </div>
+                            <div class="password">
+                                <div class="password-temp">
+                                    <input type="text" class="form-control username-input" name="username" placeholder="密码：" ng-model="vm.password">
+                                </div>
+                                <div class="password-icon">
+                                    <span class="glyphicon glyphicon-camera"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phone" ng-if="vm.loginType=='phone'">
+                            <!--手机号登录-->
+                            <div class="phone-number">
+                                <div class="phone-temp">
+                                    <div class=" form-group">
+                                        <input type="text" class="form-control phone-input" name="username" placeholder="手机号：" ng-model="vm.telephone" ng-maxlength="13">
+                                    </div>
+                                </div>
+                                <div class="phone-icon">
+                                    <span class="glyphicon glyphicon-phone"></span>
+                                </div>
+                            </div>
+                            <div class="password">
+                                <div class="password-temp ">
+                                    <div class="username-input-parent form-group has-error">
+                                        <input type="text" class="form-control username-input verification-code" name="username" placeholder="验证码：" ng-model="vm.code">
+                                    </div>
+
+                                    <input type="text" class="form-control post-code display-inline-block" readonly ng-model="vm.codeMsg" ng-click="getCode()" ng-disabled="canClick" ng-dblclick="">
+                                </div>
+                                <div class="password-icon">
+                                    <span class="glyphicon glyphicon-camera"></span>
+                                </div>
+                            </div>
+                            <!--账号密码登录-->
+                        </div>
+                        <div class="auto-login" style="width: 90%;margin-left: 20px;">
+                            <div  class="auto-login-checkbox zzb-cursor" ng-class="{'checkbox-click':vm.autoLogin==true}" ng-click="checkAuto(vm.autoLogin)">
+                                <icon  class="glyphicon glyphicon-ok auto-login-icon" ng-if="vm.autoLogin==true"></icon>
+                            </div>
+
+                            <span class="auto-login-txt">自动登陆</span>
+                            <span class="forget-pwd zzb-cursor">忘记密码</span>
+                        </div>
+                        <div class="login">
+                            <div class="mt-24">
+                                <button class="btn btn-primary"  style="width: 100%;" ng-click="login()">登&nbsp;录</button>
+                            </div>
+                            <div class="mt-24">
+                                <div class="third-login">
+                                    <span>第三方登录</span>
+                                    <icon class="third-login-wechat"></icon>
+                                    <icon class="third-login-qq"></icon>
+                                    <span class="third-login-register" ng-click="vm.register=true">注册用户</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <div class="mt-24">
+                                <div class="copy-right">
+                                    Copyright©2018 zzb个人网站使用
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--登录结束-->
+                    <!--注册开始-->
+                    <div class="main-login" ng-show="vm.register==true">
+                        <div class="main-content">
+                            <div class="register-title">
+                                <span class="register-title-description">注册</span>
+                            </div>
+                            <div class="register-telephone">
+                                <div class="form-group" ng-class="{'has-error':register.telephoneError!=null}">
+                                    <input type="text" class="form-control  register-telephone-input" name="username" placeholder="手机号：" ng-model="register.telephone" ng-maxlength="50">
+                                    <span style="color: red">{{register.telephoneError}}</span>
+                                </div>
+                            </div>
+                            <div class="register-pwd">
+                                <input type="password" class="form-control register-pwd-input" name="username" placeholder="密码：" ng-model="register.password" ng-maxlength="50">
+                            </div>
+                            <div class="register-pwd form-group" ng-class="{'has-error':register.checkPwdError}">
+                                <input type="password" class="form-control register-pwd-input" name="username" placeholder="二次确认密码：" ng-model="register.confirmPwd" ng-maxlength="50">
+                                <span style="color: red">{{register.checkPwdError}}</span>
+                            </div>
+                            <div class="register-checkCode">
+                                <div class="register-input-parent form-group"  ng-class="{'has-error':register.checkCodeError}">
+                                    <input type="text" class="form-control register-checkCode-input" name="username" placeholder="验证码：" ng-model="register.code" ng-maxlength="50">
+                                </div>
+                                <input type="text" class="form-control register-post-code f-right" readonly ng-model="vm.codeMsg" ng-click="getCode()" ng-disabled="canClick" ng-dblclick="">
+
+                            </div>
+                            <span style="color: red">{{register.checkCodeError}}</span>
+                            <div class="mt-24">
+                                <button class="btn btn-primary"  style="width: 184px;" ng-click="register()">注&nbsp;册</button>
+                                <span class="has-login-info" ng-click="vm.register=false">使用已有账户登录</span>
+                            </div>
+                            <div style="height: 40px;"></div>
+                        </div>
+
+                    </div>
+                    <!--注册结束-->
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

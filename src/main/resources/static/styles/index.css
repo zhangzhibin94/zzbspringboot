@@ -1,0 +1,164 @@
+/*
+主体部分开始
+*/
+.main-slider{
+    float: left;
+    margin: 12px 0 0 220px;
+    width: 730px;
+    height: 454px;
+    position: relative;
+}
+.main-news{
+
+    float: right;
+    height: 374px;
+    width: 248px;
+    border:1px solid #E4E4E4;
+    margin: 12px 0 5px 0px;
+}
+.main-footer-advs{
+    float: right;
+}
+.main-slider ul{
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    margin-left: -58px;
+}
+.main-slider li{
+    float: left;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    background: #3e3e3e;
+    color:#fff ;
+    text-align: center;
+    margin-left: 5px;
+    border-radius: 14px;
+    cursor: pointer;
+}
+.main-slider li:hover{
+    background: #B61D1D;
+}
+.main-slider .current{
+    background: #B61D1D;
+}
+.main-slider .noCurrent{
+    background: #3e3e3e;
+}
+.arrow a{
+    position: absolute;
+    top: 50%;
+    width: 28px;
+    margin-top:-31px;
+    height: 62px;
+    background-color: rgba(0,0,0,0.3);
+    color: #FFFFFF;
+    font: 400 22px/62px  "SimSun";
+    text-align: center;
+    border-radius: 10px;
+}
+.arrow a:hover{
+    background: rgba(0,0,0,0.6);
+}
+.arrow .arrow-next{
+    right: 0;
+}
+.main-news-top{
+    height: 372px;
+    width: 248px;
+}
+.main-news-top-faster{
+    height: 163px;
+    border-bottom: 1px dashed #E4E4E4;
+}
+.main-news-top-faster-title{
+    height: 32px;
+    line-height: 32px;
+    padding: 0 15px;
+    border-bottom: 1px dotted #E8E8E7;
+}
+.main-news-top-faster-title h2{
+    float: left;
+    font: 400 16px/32px "microsoft yahei";
+}
+.main-news-top-faster-title a{
+    float: right;
+    font-family: "consolas";
+}
+.main-news-top-faster-content{
+    padding: 5px 0 0 15px;
+}
+.main-news-top-faster-content li{
+    height: 24px;
+    font: 400 12px/24px "microsoft yahei";
+}
+.main-news-top-money ul{
+    width: 254px;
+}
+.main-news-top-money{
+    overflow: hidden;
+}
+.main-news-top-money li{
+    width: 62px;
+    height: 70px;
+    float: left;
+    margin-left: -1px;
+    /*margin-top: -1px;*/
+    border: 1px solid #E8E8E7;
+    border-top: 0;
+    overflow: hidden;
+}
+.main-news-top-money li a{
+    width: 62px;
+    height: 70px;
+    position: relative;
+    display: block;
+    padding-top: 40px;
+    line-height: 30px;
+    text-align: center;
+}
+.main-news-top-money i{
+    top: 13px;
+    left: 18px;
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: url("../images/fly.png") no-repeat ;
+}
+.main-news-top-money .main-news-top-money-icon2{
+    background-position: 0 -25px;
+}
+.main-news-top-money .main-news-top-money-icon3{
+    background-position: 0 -50px;
+}
+.main-news-top-money .main-news-top-money-icon4{
+    background-position: 0 -75px;
+}
+.main-news-top-money .main-news-top-money-icon5{
+    background-position: 0 -100px;
+}
+.main-news-top-money .main-news-top-money-icon6{
+    background-position: 0 -125px;
+}
+.main-news-top-money .main-news-top-money-icon7{
+    background-position: 0 -150px;
+}
+.main-news-top-money .main-news-top-money-icon8{
+    background-position: 0 -175px;
+}
+.main-news-top-money .main-news-top-money-icon9{
+    background-position: 0 -200px;
+}
+.main-news-top-money .main-news-top-money-icon10{
+    background-position: 0 -225px;
+}
+.main-news-top-money .main-news-top-money-icon11{
+    background-position: 0 -250px;
+}
+.main-news-top-money .main-news-top-money-icon12{
+    background-position: 0 -275px;
+}
+.nav-site-send-detail{
+
+}

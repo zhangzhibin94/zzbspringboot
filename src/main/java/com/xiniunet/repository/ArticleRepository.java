@@ -3,8 +3,6 @@ package com.xiniunet.repository;
 import com.xiniunet.domain.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,8 +11,8 @@ import java.util.List;
  * 方法名称拥有特定的书写规则，不需要去考虑实现，由springData实现接口
  */
 @Component
-@Document(indexName = "blog",type = "article",shards = 1,replicas = 0)
-public interface ArticleRepository extends ElasticsearchRepository<Article,Long> {
+//@Document(indexName = "blog",type = "article",shards = 1,replicas = 0)
+public interface ArticleRepository /*extends ElasticsearchRepository<Article,Long>*/ {
     /**
      * 根据title和content匹配，若两者都存在，则必须满足两个条件
      * @param title

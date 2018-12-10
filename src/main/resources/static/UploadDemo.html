@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>【基于OSS的上传文件页面】</title>
+    <link rel="stylesheet" th:href="@{/styles/bootstrap.min.css}"  media="all">
+    <link rel="stylesheet" href="./styles/bootstrap.min.css">
+    <link rel="stylesheet" href="./styles/bootstrap.min.css.map">
+    <style type="text/css">
+        *{
+            margin:0;
+            padding:0;
+        }
+        #group{
+            position: absolute;
+            left:580px;
+        }
+        #submit{
+            position: absolute;
+            top:140px;
+            left:580px;
+        }
+    </style>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+        app.directive('file', function () {
+            return {
+                scope: {
+                    file: '='
+                },
+                link: function (scope, el, attrs) {
+                    el.bind('change', function (event) {
+                        var file = event.target.files;
+                        scope.file = file ? file : undefined;
+                        scope.$apply();
+                    });
+                }
+            };
+        });
+        app.controller('myCtrl',['$scope','$http', function($scope,$http) {
+
+            $scope.click = function () {
+                $scope.vm = {
+                    file:$scope.upload_file
+                }
+                var fd = new FormData();
+                fd.append('file',$scope.upload_file[0]);
+                $http({
+                    method:'post',
+                    url:'/upload_file',
+                    data:fd,
+                    headers: {
+                        'Content-Type': undefined
+                    },
+                    transformRequest: angular.identity
+                }).then(function(data){
+                    $scope.result = data.data;
+                    $scope.url = $scope.result.url;
+
+                })
+            }
+        }]);
+    </script>
+</head>
+<body>
+<div ng-app="myApp" ng-controller="myCtrl">
+    <div align="center">
+        <h2 style="color:orangered;">基于OSS的上传文件页面</h2>
+    </div>
+    <br/>
+    <form action="/upload_file" enctype="multipart/form-data" method="post">
+        <div class="form-group" id="group">
+            <label for="exampleInputFile">File input</label>
+            <input type="file" id="exampleInputFile" name="upload_file" file="upload_file">
+        </div>
+        <a  class="btn btn-default" type="submit" ng-click="click()">上传</a>
+    </form>
+    <img ng-src="{{url}}?x-oss-process=image/resize,w_400,h_400/quality,q_90" width="54" height="54" alt="">
+</div>
+
+</body>
+</html>

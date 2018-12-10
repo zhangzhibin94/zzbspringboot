@@ -1,0 +1,327 @@
+ul li{
+
+}
+header {
+    width: 100%;
+    padding: 5px 0;
+    background: #1C2327;
+    height: 50px;
+}
+header::before {
+    background: #000 linear-gradient(to left, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);
+    content: "";
+    height: 5px;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.navbox {
+    width: 1200px;
+    margin: auto;
+}
+#mnavh {
+    display: none;
+    margin: 5px 0 0 0;
+    width: 24px;
+    height: 40px;
+    float: right;
+    text-align: center;
+    padding: 0 10px;
+}
+.navicon {
+    display: block;
+    position: relative;
+    width: 30px;
+    height: 5px;
+    background-color: #fff;
+    margin-top: 20px;
+}
+.logo {
+    float: left;
+    margin-right: 60px;
+    line-height: 50px;
+    color: #FFF;
+    font-size: 22px;
+}
+.logo a {
+    color: #FFF;
+}
+nav {
+    float: left;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+ul, li {
+    list-style: none;
+}
+.searchico {
+    margin-top: 5px;
+    width: 39px;
+    height: 39px;
+    float: right;
+    display: inline;
+    cursor: pointer;
+    background: url(../images/bg.png) no-repeat center !important;
+}
+.searchbox {
+    width: 1200px;
+    margin: 10px auto;
+    overflow: hidden;
+    background: #ffffff;
+    position: relative;
+}
+.search {
+    width: 50%;
+    margin: 20px auto;
+    background: #222;
+    border-radius: 0 5px 5px 0;
+    position: relative;
+    border: #ccc 1px solid;
+    display: none;
+}
+.box, article {
+    width: 1200px;
+    margin: auto;
+    overflow: hidden;
+}
+.lbox {
+    width: 75%;
+    float: left;
+    overflow: hidden;
+}
+.banbox {
+    width: 68.5%;
+    overflow: hidden;
+    float: left;
+    border-radius: 3px;
+    margin-bottom: 20px;
+}
+.banner {
+    width: 100%;
+    overflow: hidden;
+    float: left;
+}
+.fader {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    /* padding-top: 50%; */
+    font-family: "futura", arial;
+    overflow: hidden;
+}
+.fader .slide {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    z-index: 1;
+    opacity: 0;
+}
+a {
+    text-decoration: none;
+    color: #333;
+}
+.fader .slide img {
+    width: 100%;
+    height: 260px;
+    margin: auto;
+}
+.headline {
+    width: 30%;
+    float: right;
+    overflow: hidden;
+}
+.headline ul {
+    height: 260px;
+}
+.headline ul li {
+    width: 100%;
+    background: #000;
+    overflow: hidden;
+    height: 125px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    position: relative;
+}
+.headline ul li a {
+    display: block;
+    overflow: hidden;
+    height: 100%;
+}
+.clearblank {
+    clear: both;
+    width: 100%;
+    overflow: hidden;
+}
+.tab_box {
+    clear: both;
+    position: relative;
+}
+
+.whitebg {
+    background: #fff;
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.tab_buttons {
+    margin-bottom: 10px;
+    width: 100%;
+    overflow: hidden;
+    border-bottom: #e4e3e3 1px solid;
+    /* position: relative; */
+}
+.tab_buttons li {
+    display: block;
+    font-size: 16px;
+    line-height: 40px;
+    float: left;
+    width: 100px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+}
+.newscurrent:after {
+    content: "";
+    background: #000;
+    width: 100px;
+    height: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.newsitem:nth-child(1) {
+    display: block;
+}
+.newspic {
+    float: left;
+    width: 32%;
+    height: 218px;
+    overflow: hidden;
+    position: relative;
+}
+.newspic ul {
+    overflow: hidden;
+}
+.newspic li {
+    height: 100px;
+    position: relative;
+    background: rgba(0,0,0,1);
+    overflow: hidden;
+    margin-bottom: 10px;
+    border-radius: 3px;
+}
+.newspic li a {
+    display: block;
+    overflow: hidden;
+}
+.newspic img {
+    height: 100%;
+    width: 100%;
+    opacity: .7;
+    -moz-transition: all .5s ease;
+    -webkit-transition: all .5s ease;
+    -ms-transition: all .5s ease;
+    -o-transition: all .5s ease;
+    transition: all .5s ease;
+    transition: all 0.5s;
+}
+.newspic span {
+    bottom: 0;
+    position: absolute;
+    bottom: 30%;
+    left: 0;
+    right: 0;
+    color: #FFF;
+    text-align: center;
+    font-size: 15px;
+    padding: 0 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-height: 22px;
+}
+.newslist {
+    float: right;
+    width: 66%;
+}
+.newslist li:nth-child(1) {
+    height: 100%;
+    background: #f7f7f7;
+}
+.newsitem ul li:first-child i {
+    background: #222;
+}
+.newsitem ul li:first-child i::before {
+    content: "1";
+}
+.newslist li:nth-child(1) a {
+    color: #000;
+    font-weight: bold;
+}
+.newslist p {
+    line-height: 24px;
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    height: 48px;
+}
+.whitebg {
+    background: #fff;
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+.htitle {
+    font-size: 16px;
+    line-height: 40px;
+    border-bottom: 1px solid #eee;
+    color: #484848;
+    font-weight: normal;
+    position: relative;
+    margin-bottom: 10px;
+}
+.hnav {
+    float: right;
+}
+.hnav a {
+    display: block;
+    margin-right: 10px;
+    padding-right: 10px;
+    float: left;
+    position: relative;
+}
+.hnav a:after {
+    position: relative;
+    content: "/";
+    right: -10px;
+    bottom: 0;
+    color: #ccc;
+}
+.zhuanti ul {
+    overflow: hidden;
+    padding: 10px 0 20px 10px;
+    position: relative;
+}
+#starlist li {
+    position: relative;
+    display: inline;
+    float: left;
+    width: max-content;
+}
+#starlist li a:hover, #starlist #selected, .selected > a, #starlist li:hover {
+    color: #00c1de;
+}
+#starlist li a {
+    display: inline;
+    float: left;
+    padding: 0 20px;
+    color: #fff;
+}
