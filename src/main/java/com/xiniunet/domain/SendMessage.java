@@ -9,6 +9,11 @@ public class SendMessage  {
      */
     private String code;
 
+    /**
+     * 类型，register
+     */
+    private String type;
+
     public String getCode() {
         return code;
     }
@@ -23,5 +28,13 @@ public class SendMessage  {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

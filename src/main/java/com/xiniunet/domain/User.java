@@ -15,6 +15,10 @@ public class User implements Serializable {
     private String email;
     private String userName;
     private Long phone;
+    /**
+     * 验证码
+     */
+    private String code;
 
     public Long getId() {
         return id;
@@ -62,5 +66,13 @@ public class User implements Serializable {
 
     public void setPhone(Long phone) {
         this.phone = phone;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 }

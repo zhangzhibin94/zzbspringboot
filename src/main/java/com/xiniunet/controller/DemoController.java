@@ -4,9 +4,11 @@ import com.aliyuncs.exceptions.ClientException;
 import com.xiniunet.domain.SendMessage;
 import com.xiniunet.domain.ServerSettings;
 import com.xiniunet.domain.User;
+import com.xiniunet.response.RegisterCreateResponse;
 import com.xiniunet.service.ProdecerService;
 import com.xiniunet.service.UserService;
 import com.xiniunet.utils.AliyunMessageUtil;
+import com.xiniunet.utils.JedisClient;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
 //@RestController = @Controller + @ResponseBody
 @Controller
 @EnableAutoConfiguration
@@ -31,6 +35,9 @@ public class DemoController {
 
     @Autowired
     private AliyunMessageUtil aliyunMessageUtil;
+
+    @Autowired
+    private JedisClient jedisClient;
 
     @RequestMapping("/")
     String home(){
@@ -155,12 +162,29 @@ public class DemoController {
      */
     @RequestMapping("/send_check_code")
     public Object sendCode(@RequestBody SendMessage sendMessage) throws ClientException {
-        Boolean sendSuccess = aliyunMessageUtil.sendVetifyMessage(sendMessage.getTelephone());
-        if(sendSuccess!=null){
-           if(sendSuccess){
+        String msg = aliyunMessageUtil.sendVetifyMessage(sendMessage.getTelephone());
+        if("register".equalsIgnoreCase(sendMessage.getType())){//如果为注册类型
+            //1.在redis中生成一条记录，key为前缀+手机号，value为验证码
+            jedisClient.set("register:"+sendMessage.getTelephone(),msg);
+            //2.设置key的过期时间为5分钟
+            jedisClient.expire("register:"+sendMessage.getTelephone(),5, TimeUnit.MINUTES);
+        }
+        if(msg!=null){//发送成功
+
                return "index";
-           }
+
         }
         return null;
+    }
+
+    /**
+     * 注册
+     * @param user
+     * @return
+     */
+    @RequestMapping("/register")
+    public RegisterCreateResponse register(User user){
+        RegisterCreateResponse response = userService.register(user);
+        return response;
     }
 }

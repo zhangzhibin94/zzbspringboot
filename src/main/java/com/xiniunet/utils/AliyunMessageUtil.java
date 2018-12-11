@@ -26,7 +26,7 @@ public class AliyunMessageUtil {
     private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AliyunMessageUtil.class);
 
     /** 发送短信*/
-    public Boolean sendVetifyMessage(String telephone) throws ClientException{
+    public String sendVetifyMessage(String telephone) throws ClientException{
         logger.info("------阿里云发送短信开始--------"+telephone);
         String product =messageConfig.getProduct();
         String domain =messageConfig.getDomain();
@@ -66,9 +66,9 @@ public class AliyunMessageUtil {
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         if(sendSmsResponse.getCode() != null && sendSmsResponse.getCode().equals("OK")) {
 //请求成功
-            return true;
+            return result;
         }
-      return false;
+      return null;
     }
 
 }
