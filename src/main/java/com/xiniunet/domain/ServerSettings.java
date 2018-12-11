@@ -23,6 +23,9 @@ public class ServerSettings {
     @Value("${server.port}")
     private String port;
 
+    @Value("${web.domian.name}")
+    private String domainName;
+
     public String getWebName() {
         return webName;
     }
@@ -37,5 +40,13 @@ public class ServerSettings {
 
     public void setPort(String port) {
         this.port = port;
+    }
+
+    public String getDomainName() {
+        return domainName;
+    }
+
+    public void setDomainName(String domainName) {
+        this.domainName = domainName;
     }
 }

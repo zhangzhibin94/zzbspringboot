@@ -188,7 +188,7 @@ public class DemoController {
             //3.在redis中生成一条记录，key为前缀+手机号，value为验证码
             jedisClient.set("register:"+sendMessage.getTelephone(),msg);
             //4.设置key的过期时间为5分钟
-            jedisClient.expire("register:"+sendMessage.getTelephone(),5, TimeUnit.MINUTES);
+            jedisClient.expire("register:"+sendMessage.getTelephone(),15, TimeUnit.MINUTES);
             if(msg!=null){//发送成功
                 return response;
             }
@@ -199,11 +199,12 @@ public class DemoController {
 
     /**
      * 注册
-     * @param user
+     * @param
      * @return
      */
     @RequestMapping("/register")
-    public RegisterCreateResponse register(User user){
+    @ResponseBody
+    public RegisterCreateResponse register(@RequestBody User user){
         RegisterCreateResponse response = userService.register(user);
         return response;
     }

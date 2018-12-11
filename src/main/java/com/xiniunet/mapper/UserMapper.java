@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 public interface UserMapper {
-    long insert(@Param("request") User user);
+    int insert(@Param("request") User user);
 
     List<User> find(@Param("request")User user);
 

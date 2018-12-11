@@ -6,6 +6,7 @@ import com.xiniunet.mapper.UserMapper;
 import com.xiniunet.response.LoginResponse;
 import com.xiniunet.response.RegisterCreateResponse;
 import com.xiniunet.service.UserService;
+import com.xiniunet.utils.CoreUtil;
 import com.xiniunet.utils.JedisClient;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,7 @@ public class UserServiceImpl implements UserService {
     public RegisterCreateResponse register(User user) {
         RegisterCreateResponse response = new RegisterCreateResponse();
         //获取redis中的验证码
-        String msg = jedisClient.get("register:" + user.getPhone());
+        String msg = jedisClient.get("register:" + user.getTelephone());
         //匹配用户输入的验证码与redis中的验证码是否相同
         if(StringUtils.isNotEmpty(msg)){
             if(StringUtils.isNotEmpty(user.getCode())){
@@ -56,7 +57,9 @@ public class UserServiceImpl implements UserService {
                         response.addError(ErrorType.BUSINESS_ERROR,"密码不能为空，请检查");
                         return response;
                     }
-
+                    user.setId(CoreUtil.getId());
+                    user.setUserName("zzb");
+                    user.setPhone(user.getTelephone());
                     long insert = userMapper.insert(user);
                     if(insert==1){
                         response.setUser(user);
@@ -74,7 +77,7 @@ public class UserServiceImpl implements UserService {
                 return response;
             }
         }else {
-            response.addError(ErrorType.BUSINESS_ERROR,"验证码已过期，请重新注册");
+            response.addError(ErrorType.BUSINESS_ERROR,"验证码不正确，请重新注册");
             return response;
         }
         return response;

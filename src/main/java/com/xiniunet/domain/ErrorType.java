@@ -2,6 +2,8 @@ package com.xiniunet.domain;/**
  * Created by zzb on 2018/12/11.
  */
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author zzb
  * @create 2018-12-11 11:21

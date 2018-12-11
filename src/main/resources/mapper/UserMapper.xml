@@ -13,7 +13,7 @@
     delete from t_sys_log
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <select id="insert" resultType="java.lang.Long" >
+  <select id="insert" resultType="java.lang.Integer" >
     INSERT INTO USER (
     ID,
     NAME,
@@ -64,7 +64,7 @@
     SELECT COUNT(*) FROM USER
     WHERE
     IS_DELETED = 0
-    AND (USER_NAME = #{request.username} OR PASSWORD = #{request.password})
+    AND (USER_NAME = #{request.userName} OR PHONE = #{request.phone})
 
   </select>
 </mapper>

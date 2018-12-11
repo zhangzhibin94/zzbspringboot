@@ -16,6 +16,11 @@ public class User implements Serializable {
     private String userName;
     private Long phone;
     /**
+     * 用户注册用的手机
+     */
+    private Long telephone;
+
+    /**
      * 验证码
      */
     private String code;
@@ -74,5 +79,13 @@ public class User implements Serializable {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Long getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(Long telephone) {
+        this.telephone = telephone;
     }
 }

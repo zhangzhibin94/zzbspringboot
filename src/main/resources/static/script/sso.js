@@ -62,14 +62,15 @@ sso.controller('LoginController',['$scope','$interval','$http',function ($scope,
         if($scope.vm.register==true){
             $scope.checkCode = {
                 telephone:$scope.register.telephone,
+                type:'register'
             }
             $http({
                 method:'post',
                 url:'/send_check_code',
                 data:$scope.checkCode,
             }).then(function(data){
-                if (data.errors == null || data.errors.length > 0) {
-                    $scope.register.checkCodeError=data.errors;
+                if (data.data.errors == null || data.data.errors.length > 0) {
+                    $scope.register.checkCodeError=data.data.firstErrorMessage;
                 } else {
                     $scope.result = data.data;
                     $scope.url = $scope.result.url;
@@ -78,7 +79,7 @@ sso.controller('LoginController',['$scope','$interval','$http',function ($scope,
         }
     }
     //用户注册
-    $scope.register = function () {
+    $scope.doRegister = function () {
         $scope.register.telephoneError=null;
         $scope.register.checkPwdError=null;
         $scope.register.checkCodeError=null;
@@ -89,6 +90,7 @@ sso.controller('LoginController',['$scope','$interval','$http',function ($scope,
                     $scope.register.telephoneError = '您填写的手机号格式错误！';
                     return false;
                 }
+                $scope.register.telephone = Number($scope.register.telephone);
 
             }else {
                 $scope.register.telephoneError = '请先填写您的手机号码！';
@@ -104,14 +106,18 @@ sso.controller('LoginController',['$scope','$interval','$http',function ($scope,
             $scope.register.checkCodeError='请输入验证码';
             return false;
         }
+        $scope.register.code = $scope.register.code+'';
         $http({
             method:'post',
             url:'/register',
             data:$scope.register,
         }).then(function(data){
-            $scope.result = data.data;
-            $scope.url = $scope.result.url;
-
+            if (data.data.errors == null || data.data.errors.length > 0) {
+                $scope.register.checkCodeError=data.data.firstErrorMessage;
+            }else{
+                $scope.result = data.data;
+                $scope.url = $scope.result.url;
+            }
         })
     }
     $scope.checkPhone = function(telephoneNumber){

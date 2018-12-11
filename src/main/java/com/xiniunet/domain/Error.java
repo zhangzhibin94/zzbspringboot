@@ -2,6 +2,8 @@ package com.xiniunet.domain;/**
  * Created by zzb on 2018/12/11.
  */
 
+import org.springframework.stereotype.Component;
+
 import java.io.Serializable;
 
 /**
@@ -9,6 +11,7 @@ import java.io.Serializable;
  * @create 2018-12-11 11:19
  * @desc 错误对象
  **/
+@Component
 public class Error implements Serializable {
     private static final long serialVersionUID = 3L;
 
