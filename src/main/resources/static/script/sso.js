@@ -22,6 +22,7 @@ sso.controller('LoginController',['$scope','$interval','$http',function ($scope,
     $scope.getCode = function() {
         $scope.register.telephoneError=null;
         $scope.register.checkPwdError=null;
+        $scope.register.checkCodeError=null;
         if($scope.vm.register==true){//注册调用此方法
             //验证手机号
             if($scope.register.telephone){
@@ -67,9 +68,12 @@ sso.controller('LoginController',['$scope','$interval','$http',function ($scope,
                 url:'/send_check_code',
                 data:$scope.checkCode,
             }).then(function(data){
-                $scope.result = data.data;
-                $scope.url = $scope.result.url;
-
+                if (data.errors == null || data.errors.length > 0) {
+                    $scope.register.checkCodeError=data.errors;
+                } else {
+                    $scope.result = data.data;
+                    $scope.url = $scope.result.url;
+                }
             })
         }
     }
