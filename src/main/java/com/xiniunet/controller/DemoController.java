@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.jms.Destination;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -205,5 +206,14 @@ public class DemoController {
     public RegisterCreateResponse register(User user){
         RegisterCreateResponse response = userService.register(user);
         return response;
+    }
+    @RequestMapping(value="/login_in", method=RequestMethod.POST)
+    @ResponseBody
+    public BaseResponse userLogin(User user,
+                                    HttpServletRequest request, HttpServletResponse response) {
+        BaseResponse baseResponse = new BaseResponse();
+        //获取拦截器返回的user信息
+        User users = (User)request.getAttribute("user");
+        return baseResponse;
     }
 }

@@ -1,5 +1,6 @@
 package com.xiniunet.Interceptor;
 
+import com.xiniunet.domain.User;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         System.out.println("preHandle init");
+        request.setAttribute("user",new User());
         return HandlerInterceptor.super.preHandle(request, response,handler);
     }
     /*
