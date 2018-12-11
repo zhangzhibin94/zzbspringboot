@@ -48,4 +48,23 @@
     </if>
 
   </select>
+
+  <select id="loginByUserName" resultMap="baseResultMap">
+    SELECT ID,USER_NAME,PASSWORD FROM USER
+    WHERE
+    IS_DELETED = 0
+    <if test="request.username!=null">
+      AND USER_NAME = #{request.username}
+    </if>
+    <if test="request.password!=null">
+      AND PASSWORD = #{request.password}
+    </if>
+  </select>
+  <select id="isExistUser" resultType="java.lang.Long">
+    SELECT COUNT(*) FROM USER
+    WHERE
+    IS_DELETED = 0
+    AND (USER_NAME = #{request.username} OR PASSWORD = #{request.password})
+
+  </select>
 </mapper>

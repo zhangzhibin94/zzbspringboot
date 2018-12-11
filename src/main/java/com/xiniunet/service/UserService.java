@@ -1,6 +1,7 @@
 package com.xiniunet.service;
 
 import com.xiniunet.domain.User;
+import com.xiniunet.response.LoginResponse;
 import com.xiniunet.response.RegisterCreateResponse;
 
 import java.util.List;
@@ -15,4 +16,18 @@ public interface UserService {
      * @return
      */
     RegisterCreateResponse register(User user);
+
+    /**
+     * 通过用户名密码登录
+     * @param user
+     * @return
+     */
+    LoginResponse loginByUserName(User user);
+
+    /**
+     * 用户是否存在（判断用户名或手机号是否已经存在）
+     * @param user
+     * @return
+     */
+    Long isExistUser(User user);
 }

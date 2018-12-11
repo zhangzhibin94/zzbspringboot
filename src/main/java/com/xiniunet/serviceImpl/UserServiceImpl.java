@@ -3,6 +3,7 @@ package com.xiniunet.serviceImpl;
 import com.xiniunet.domain.ErrorType;
 import com.xiniunet.domain.User;
 import com.xiniunet.mapper.UserMapper;
+import com.xiniunet.response.LoginResponse;
 import com.xiniunet.response.RegisterCreateResponse;
 import com.xiniunet.service.UserService;
 import com.xiniunet.utils.JedisClient;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 
 import java.util.List;
 
@@ -47,6 +49,14 @@ public class UserServiceImpl implements UserService {
         if(StringUtils.isNotEmpty(msg)){
             if(StringUtils.isNotEmpty(user.getCode())){
                 if(msg.equalsIgnoreCase(user.getCode())){//匹配成功，则在数据库中插入用户信息
+                    //密码进行md5加密
+                    if(StringUtils.isNotEmpty(user.getPassword())){
+                        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+                    }else {
+                        response.addError(ErrorType.BUSINESS_ERROR,"密码不能为空，请检查");
+                        return response;
+                    }
+
                     long insert = userMapper.insert(user);
                     if(insert==1){
                         response.setUser(user);
@@ -68,5 +78,39 @@ public class UserServiceImpl implements UserService {
             return response;
         }
         return response;
+    }
+    /**
+     * 通过用户名密码登录
+     * @param user
+     * @return
+     */
+    @Override
+    public LoginResponse loginByUserName(User user) {
+        LoginResponse response = new LoginResponse();
+        if(StringUtils.isEmpty(user.getUserName())||StringUtils.isEmpty(user.getPassword())){//用户名或密码为空
+            response.addError(ErrorType.EXPECTATION_NULL,"用户名或密码不能为空，请检查");
+            return response;
+        }else{
+            //密码需经过md5加密
+            user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
+            user= userMapper.loginByUserName(user);
+            if(user==null){
+                response.addError(ErrorType.BUSINESS_ERROR,"用户名或密码错误！");
+                return response;
+            }else {
+                response.setUser(user);
+            }
+        }
+        return response;
+    }
+
+    @Override
+    public Long isExistUser(User user) {
+        if(StringUtils.isNotEmpty(user.getUserName())||user.getPhone()!=null){
+            Long result = userMapper.isExistUser(user);
+            return result;
+        }else {
+            return 0l;
+        }
     }
 }

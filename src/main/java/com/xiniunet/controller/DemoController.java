@@ -1,9 +1,11 @@
 package com.xiniunet.controller;
 
 import com.aliyuncs.exceptions.ClientException;
+import com.xiniunet.domain.ErrorType;
 import com.xiniunet.domain.SendMessage;
 import com.xiniunet.domain.ServerSettings;
 import com.xiniunet.domain.User;
+import com.xiniunet.response.BaseResponse;
 import com.xiniunet.response.RegisterCreateResponse;
 import com.xiniunet.service.ProdecerService;
 import com.xiniunet.service.UserService;
@@ -11,6 +13,7 @@ import com.xiniunet.utils.AliyunMessageUtil;
 import com.xiniunet.utils.JedisClient;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -161,20 +164,36 @@ public class DemoController {
      * @throws ClientException
      */
     @RequestMapping("/send_check_code")
-    public Object sendCode(@RequestBody SendMessage sendMessage) throws ClientException {
-        String msg = aliyunMessageUtil.sendVetifyMessage(sendMessage.getTelephone());
+    @ResponseBody
+    public BaseResponse sendCode(@RequestBody SendMessage sendMessage) throws ClientException {
+        BaseResponse response = new BaseResponse();
+
         if("register".equalsIgnoreCase(sendMessage.getType())){//如果为注册类型
-            //1.在redis中生成一条记录，key为前缀+手机号，value为验证码
+            //1.先查询redis中的该手机号与验证码的记录是否大于4分钟(有效期5分钟-发送冷却1分钟),防止被黑客频繁攻击而产生巨额短信费用
+            Long expire = jedisClient.getExpire("register:" + sendMessage.getTelephone(), TimeUnit.MINUTES);
+            if(expire!=null&&expire>4){
+                response.addError(ErrorType.BUSINESS_ERROR,"您发送验证码的频率过高，请稍后再试");
+                return response;
+            }
+            //2.校验手机号是否已存在
+            User user = new User();
+            user.setPhone(Long.parseLong(sendMessage.getTelephone()));
+            Long existUser = userService.isExistUser(user);
+            if(existUser>0){
+                response.addError(ErrorType.BUSINESS_ERROR,"手机号已存在");
+                return response;
+            }
+            String msg = aliyunMessageUtil.sendVetifyMessage(sendMessage.getTelephone());
+            //3.在redis中生成一条记录，key为前缀+手机号，value为验证码
             jedisClient.set("register:"+sendMessage.getTelephone(),msg);
-            //2.设置key的过期时间为5分钟
+            //4.设置key的过期时间为5分钟
             jedisClient.expire("register:"+sendMessage.getTelephone(),5, TimeUnit.MINUTES);
+            if(msg!=null){//发送成功
+                return response;
+            }
         }
-        if(msg!=null){//发送成功
 
-               return "index";
-
-        }
-        return null;
+        return response;
     }
 
     /**

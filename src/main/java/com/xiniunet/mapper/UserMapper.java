@@ -11,4 +11,13 @@ public interface UserMapper {
     long insert(@Param("request") User user);
 
     List<User> find(@Param("request")User user);
+
+    User loginByUserName(@Param("request")User user);
+
+    /**
+     * 用户是否存在
+     * @param user
+     * @return
+     */
+    Long isExistUser(@Param("request")User user);
 }
