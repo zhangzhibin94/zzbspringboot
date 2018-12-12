@@ -187,6 +187,14 @@ public class DemoController {
             }
         }else if("login".equalsIgnoreCase(sendMessage.getType())){//类型为登录类型
             type="login";
+            User user = new User();
+            user.setPhone(Long.parseLong(sendMessage.getTelephone()));
+            //fixme 每次登录都需要校验手机号是否存在，如何优化？
+            Long existUser = userService.isExistUser(user);
+            if(existUser==0){
+                response.addError(ErrorType.BUSINESS_ERROR,"手机号不存在,请先注册");
+                return response;
+            }
         }else {
             response.addError(ErrorType.BUSINESS_ERROR,"发送类型错误");
             return response;
@@ -236,7 +244,7 @@ public class DemoController {
         LoginResponse loginResponse = new LoginResponse();
         User databaseUser = new User();
         //获取拦截器返回的user信息
-        if(request.getAttribute("user")!=null){//如果拦截器中存在user信息表明用户已经登录，则直接返回
+        if(null!=request.getAttribute("user")){//如果拦截器中存在user信息表明用户已经登录，则直接返回
             User users = (User)request.getAttribute("user");
             loginResponse.setUser(users);
             return loginResponse;
