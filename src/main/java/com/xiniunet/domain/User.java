@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable {
+public class User extends BaseDomain{
 
     private Long id;
     private String name;
@@ -24,6 +25,11 @@ public class User implements Serializable {
      * 验证码
      */
     private String code;
+
+    /**
+     * 登录类型
+     */
+    private String loginType;
 
     public Long getId() {
         return id;
@@ -87,5 +93,13 @@ public class User implements Serializable {
 
     public void setTelephone(Long telephone) {
         this.telephone = telephone;
+    }
+
+    public String getLoginType() {
+        return loginType;
+    }
+
+    public void setLoginType(String loginType) {
+        this.loginType = loginType;
     }
 }

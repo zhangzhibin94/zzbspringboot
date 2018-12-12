@@ -1,7 +1,6 @@
 package com.xiniunet.domain;
 
 
-import java.io.Serializable;
 import java.util.Date;
 
 //@Document表示一条记录，对应索引名称为blog，索引类型为article

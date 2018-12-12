@@ -5,18 +5,23 @@ import com.xiniunet.domain.ErrorType;
 import com.xiniunet.domain.SendMessage;
 import com.xiniunet.domain.ServerSettings;
 import com.xiniunet.domain.User;
+import com.xiniunet.request.LoginByTelephoneRequest;
 import com.xiniunet.response.BaseResponse;
+import com.xiniunet.response.LoginResponse;
 import com.xiniunet.response.RegisterCreateResponse;
 import com.xiniunet.service.ProdecerService;
 import com.xiniunet.service.UserService;
 import com.xiniunet.utils.AliyunMessageUtil;
+import com.xiniunet.utils.CookieUtils;
 import com.xiniunet.utils.JedisClient;
+import com.xiniunet.utils.JsonUtils;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.apache.activemq.command.ActiveMQTopic;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.jms.Destination;
@@ -25,6 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 //@RestController = @Controller + @ResponseBody
@@ -168,15 +174,10 @@ public class DemoController {
     @ResponseBody
     public BaseResponse sendCode(@RequestBody SendMessage sendMessage) throws ClientException {
         BaseResponse response = new BaseResponse();
-
+        String type = "";
         if("register".equalsIgnoreCase(sendMessage.getType())){//如果为注册类型
-            //1.先查询redis中的该手机号与验证码的记录是否大于4分钟(有效期5分钟-发送冷却1分钟),防止被黑客频繁攻击而产生巨额短信费用
-            Long expire = jedisClient.getExpire("register:" + sendMessage.getTelephone(), TimeUnit.MINUTES);
-            if(expire!=null&&expire>4){
-                response.addError(ErrorType.BUSINESS_ERROR,"您发送验证码的频率过高，请稍后再试");
-                return response;
-            }
-            //2.校验手机号是否已存在
+            type="register";
+            //1.校验手机号是否已存在
             User user = new User();
             user.setPhone(Long.parseLong(sendMessage.getTelephone()));
             Long existUser = userService.isExistUser(user);
@@ -184,16 +185,29 @@ public class DemoController {
                 response.addError(ErrorType.BUSINESS_ERROR,"手机号已存在");
                 return response;
             }
-            String msg = aliyunMessageUtil.sendVetifyMessage(sendMessage.getTelephone());
-            //3.在redis中生成一条记录，key为前缀+手机号，value为验证码
-            jedisClient.set("register:"+sendMessage.getTelephone(),msg);
-            //4.设置key的过期时间为5分钟
-            jedisClient.expire("register:"+sendMessage.getTelephone(),15, TimeUnit.MINUTES);
-            if(msg!=null){//发送成功
-                return response;
-            }
+        }else if("login".equalsIgnoreCase(sendMessage.getType())){//类型为登录类型
+            type="login";
+        }else {
+            response.addError(ErrorType.BUSINESS_ERROR,"发送类型错误");
+            return response;
         }
-
+        //2.先查询redis中的该手机号与验证码的记录是否大于14分钟(有效期15分钟-发送冷却1分钟),防止被黑客频繁攻击而产生巨额短信费用
+        Long expire = jedisClient.getExpire(type+":" + sendMessage.getTelephone(), TimeUnit.MINUTES);
+        if(expire!=null&&expire>14){
+            response.addError(ErrorType.BUSINESS_ERROR,"您发送验证码的频率过高，请稍后再试");
+            return response;
+        }
+        //发送短信，返回结果为短信验证码
+        String msg = aliyunMessageUtil.sendVetifyMessage(sendMessage.getTelephone());
+        //将验证码md5加密
+        String md5Message = DigestUtils.md5DigestAsHex(msg.getBytes());
+        //3.在redis中生成一条记录，key为前缀+手机号，value为验证码
+        jedisClient.set(type+":"+sendMessage.getTelephone(),md5Message);
+        //todo 4.设置key的过期时间为15分钟,开发时设置为一小时
+        jedisClient.expire(type+":"+sendMessage.getTelephone(),60, TimeUnit.MINUTES);
+        if(msg!=null){//发送成功
+            return response;
+        }
         return response;
     }
 
@@ -208,13 +222,65 @@ public class DemoController {
         RegisterCreateResponse response = userService.register(user);
         return response;
     }
+
+    /**
+     * 登录
+     * @param user
+     * @param request
+     * @param response
+     * @return
+     */
     @RequestMapping(value="/login_in", method=RequestMethod.POST)
     @ResponseBody
-    public BaseResponse userLogin(User user,
-                                    HttpServletRequest request, HttpServletResponse response) {
-        BaseResponse baseResponse = new BaseResponse();
+    public LoginResponse userLogin(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
+        LoginResponse loginResponse = new LoginResponse();
+        User databaseUser = new User();
         //获取拦截器返回的user信息
-        User users = (User)request.getAttribute("user");
-        return baseResponse;
+        if(request.getAttribute("user")!=null){//如果拦截器中存在user信息表明用户已经登录，则直接返回
+            User users = (User)request.getAttribute("user");
+            loginResponse.setUser(users);
+            return loginResponse;
+        }else {//拦截器中不存在user信息，则表示用户未登录
+            if(StringUtils.isNotEmpty(user.getLoginType())){
+                if("telephone".equalsIgnoreCase(user.getLoginType())){//登录类型为手机号
+                    //手机号是否在数据库中存在
+                    Long result = userService.isExistUser(user);
+                    if(result>0){//手机号已存在，则校验手机号和验证码是否匹配
+                        LoginByTelephoneRequest loginByTelephoneRequest = new LoginByTelephoneRequest();
+                        loginByTelephoneRequest.setTelephone(user.getTelephone());
+                        loginByTelephoneRequest.setCode(user.getCode());
+                        LoginResponse loginByTelephone = userService.loginByTelephone(loginByTelephoneRequest);
+                        if(loginByTelephone.hasError()){
+                            loginResponse.addErrors(loginByTelephone.getErrors());
+                            return loginResponse;
+                        }
+                        databaseUser = loginByTelephone.getUser();
+                    }else {
+                        loginResponse.addError(ErrorType.BUSINESS_ERROR,"您的手机号未注册，请先注册");
+                        return loginResponse;
+                    }
+                }else if("username".equalsIgnoreCase(user.getLoginType())){//登录类型会用户名密码
+                    //匹配数据库中的用户名密码与用户输入的用户名面是否相同
+                    LoginResponse loginByUserName = userService.loginByUserName(user);
+                    if(loginByUserName.hasError()){
+                        loginResponse.addErrors(loginByUserName.getErrors());
+                        return loginResponse;
+                    }
+                    //获得匹配成功后的用户对象
+                    databaseUser = loginByUserName.getUser();
+                }
+            }else {
+                loginResponse.addError(ErrorType.BUSINESS_ERROR,"登录类型不能为空");
+                return loginResponse;
+            }
+        }
+        //生成一个类型为uuid的token存放到cookie中,并设置cookie的过期时间为30分钟
+        String token = UUID.randomUUID().toString();
+        CookieUtils.setCookie(request,response,"token",token,30*60);
+        //将此token同步存放到redis中并设置过期时间为30min,key为token，value为json格式的用户对象
+        jedisClient.set("user:sso:"+token, JsonUtils.obj2String(databaseUser));
+        jedisClient.expire("user:sso:"+token,30,TimeUnit.MINUTES);
+        loginResponse.setUser(databaseUser);
+        return loginResponse;
     }
 }

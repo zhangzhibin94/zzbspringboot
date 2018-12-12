@@ -33,7 +33,7 @@ public class LoginInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        System.out.println("sso init");
+        System.out.println("sso interceptor init");
         //从拦截器中获取cookie的信息
         String token = CookieUtils.getCookieValue(request,"token");
         //如果cookie存在token，则取redis中查看是否存在与之匹配的记录
@@ -47,6 +47,8 @@ public class LoginInterceptor implements HandlerInterceptor {
                 request.setAttribute("user",user);
                 //刷新redis中的key的过期时间（每次用户操作都会走此拦截器，所以此过程可以模拟session的过期时间）
                 jedisClient.expire("user:sso:" + token,30, TimeUnit.MINUTES);
+                //同时更新cookie中的过期时间
+                CookieUtils.setCookie(request,response,"token",token,30*60);
                 return true;
             }
         }
