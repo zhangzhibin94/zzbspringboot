@@ -65,7 +65,7 @@ sso.controller('LoginController',['$scope','$interval','$http',function ($scope,
                 if ($scope.second <= 0) {
                     $interval.cancel(timerHandler);    //当执行的时间59s,结束时，取消定时器 ，cancle方法取消
                     $scope.second = 59;
-                    $scope.vm.codeMsg = "获取验证码";
+                    $scope.vm.codeMsg = "获取";
                     $scope.canClick = false;    //因为 ng-disabled属于布尔值，设置按钮可以点击，可点击发送
                 } else {
                     $scope.vm.codeMsg = "("+$scope.second + "s)";
