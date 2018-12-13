@@ -21,4 +21,7 @@ App.controller('IndexController',['$scope',function ($scope) {
     $scope.showDetail = function (show) {
         show = true;
     }
+    $scope.toLogin=function () {
+        window.location.href="/login.html";
+    }
 }]);

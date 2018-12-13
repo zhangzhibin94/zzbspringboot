@@ -33,13 +33,15 @@ table {
     border-collapse: collapse;			/*合并外边线*/
 }
 .w{
-    width: 368px;
+    width: 376px;
     margin: 0 auto;
     min-width: 368px;
 }
 .top{
     margin-top: 60px;
-    padding: 10px 21px;
+    padding: 10px 50px;
+    display: flex;
+    align-items: center;
 }
 .f-left{
     float: left;
@@ -49,7 +51,7 @@ table {
 }
 .login-title{
     margin-left: 16px;
-    font-size: 32px;
+    font-size: 26px;
     color: #777;
     font-family: "Microsoft YaHei";
     font-weight: 600;
@@ -59,11 +61,18 @@ table {
     font-size: 14px;
     color: rgba(0,0,0,.45);
     margin-bottom: 30px;
-    padding-left: 32px;
+    display: flex;
+    justify-content: center;
+}
+.main-shadow{
+    box-shadow: 0 2px 8px #bbb;
 }
 .main-login{
-    width: 368px;
+    width: 376px;
     margin: 0 auto;
+}
+.logo{
+    width: 34px;
 }
 .main-login-title{
     width: 250px;
@@ -180,10 +189,11 @@ table {
 .auto-login .checkbox-click{
     background: #69f !important;
 }
-.auto-login-icon{
+.auto-login .auto-login-icon{
     font-size: 14px;
     color: #ffffff;
     display: inline-block;
+    top: -1px;
 }
 .auto-login-txt{
     padding-left: 8px;
@@ -240,9 +250,7 @@ table {
 
 }
 .password .password-temp .verification-code{
-
     display: inline-block;
-
 }
 .post-code{
     width: 31%;
@@ -261,7 +269,7 @@ input[readonly],.form-control[readonly]{
 .username-input-parent{
     width: 55%;
     display: inline-block;
-    margin-left: 15px;
+    margin-left: 20px;
 }
 .mt-15{
     margin-top: 15px;
@@ -316,4 +324,53 @@ input[readonly],.form-control[readonly]{
     font-size: 14px;
     line-height: 34px;
     cursor: pointer;
+}
+.phone .telephoneError{
+    margin-left: 14px;
+    line-height: 24px;
+    color: red;
+    position: absolute;
+    top: 40px;
+    left: 5px;
+}
+.register-success{
+    margin-top: 56px;
+
+    width: 100%;
+}
+.register-success-bg{
+    height: 64px;
+    width: 64px;
+    margin: 0 auto;
+    border-radius: 50%;
+    position: relative;
+    background: rgb(82,196,26);
+}
+.icon-register-success{
+    position: absolute;
+    font-size: 32px;
+    color: #ffffff;
+    top: 22%;
+    left: 20%;
+}
+.register-success-info{
+    margin-top: 24px;
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+}
+.register-success-description{
+    margin-top: 16px;
+    display: flex;
+    justify-content: center;
+    color: rgb(132,132,132);
+}
+.register-footer{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+.ml-15{
+    margin-left: 15px;
 }

@@ -123,11 +123,13 @@ s, i, em {
 /*清除浮动*/
 body{
     background: #F0F3EF;
+    overflow-y: scroll;
+    height:100%;
 }
 .nav-site{
     background: #F1F1F1;
     height: 30px;
-    width: 1365px;
+    width: 100%;
     line-height: 30px;
 }
 .nav-site-send,
@@ -298,7 +300,6 @@ body{
 
 /*快捷导航栏start*/
 .shortcut-nav{
-    width: 100%;
     height: 43px;
     border-bottom: 2px solid rgb(166,219,255);
 }
@@ -460,24 +461,36 @@ body{
     background: #F5F5F5;
 }
 .footer-top-slogen{
-    position: relative;
-    width: 100%;
+    /*position: relative;*/
+    width: 1200px;
     height: 54px;
     padding: 20px 0;
+    margin: 0 auto;
 }
 .footer-top-slogen-icon{
-    position: absolute;
+    /*position: absolute;*/
     top: 20px;
-    left: 50%;
+    width: 25%;
+    /*left: 50%;*/
 }
 .footer-top-slogen-icon1{
-    margin-left: -604px;
+    /*margin-left: -50%;*/
+    width: 25%;
+    display: inline-block;
 }
 .footer-top-slogen-icon2{
-    margin-left: -302px;
+    width: 25%;
+    display: inline-block;
+    /*margin-left: -25%;*/
+}
+.footer-top-slogen-icon3{
+    width: 25%;
+    display: inline-block;
 }
 .footer-top-slogen-icon4{
-    margin-left: 302px;
+    width: 24%;
+    display: inline-block;
+   /* margin-left: 25%;*/
 }
 .footer-top-shooping dl{
     float: left;

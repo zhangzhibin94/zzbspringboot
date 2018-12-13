@@ -1,8 +1,10 @@
 package com.xiniunet.domain;
 
+import javax.validation.constraints.NotNull;
+
 public class SendMessage  {
 
-
+    @NotNull
     private String telephone;
     /**
      * 验证码

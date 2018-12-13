@@ -20,7 +20,8 @@ public class CustomerWebMVCConfigurer implements WebMvcConfigurer {
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-            registry.addInterceptor(interceptor()).addPathPatterns("/*").excludePathPatterns("/login","/","/register", "/send_check_code","/login_in");//拦截除登录页面和首页外的所有页面请求
+            registry.addInterceptor(interceptor()).addPathPatterns("/*").excludePathPatterns("/login","/","/register",
+                    "/send_check_code","/login_in","/index");//拦截除登录页面和首页外的所有页面请求
             /*WebMvcConfigurer.super.addInterceptors(registry);*/
     }
 }

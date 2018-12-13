@@ -122,7 +122,7 @@ public class DemoController {
     public Object testProperties(){
         return serverSettings;
     }
-    @RequestMapping(value = "/api/index")
+    @RequestMapping(value = "/index")
     public String indexMap(){
         return "index";
     }
@@ -242,6 +242,25 @@ public class DemoController {
     @ResponseBody
     public LoginResponse userLogin(@RequestBody User user, HttpServletRequest request, HttpServletResponse response) {
         LoginResponse loginResponse = new LoginResponse();
+        //存在token说明已经登录，直接跳转即可
+        String token2 = CookieUtils.getCookieValue(request,"token");
+        //如果cookie存在token，则取redis中查看是否存在与之匹配的记录
+        if(StringUtils.isNotEmpty(token2)){
+            String userStr = jedisClient.get("user:sso:" + token2);
+            //若redis同样存在该记录，说明此用户已经登录
+            if(StringUtils.isNotEmpty(userStr)){
+                //将此json串转为user对象
+                User user2 = JsonUtils.string2Obj(userStr, User.class);
+                //将user信息存放在request作用域中
+                request.setAttribute("user",user2);
+                //刷新redis中的key的过期时间（每次用户操作都会走此拦截器，所以此过程可以模拟session的过期时间）
+                jedisClient.expire("user:sso:" + token2,30, TimeUnit.MINUTES);
+                //同时更新cookie中的过期时间
+                CookieUtils.setCookie(request,response,"token",token2,30*60);
+                loginResponse.setUser(user2);
+                return loginResponse;
+            }
+        }
         User databaseUser = new User();
         //获取拦截器返回的user信息
         if(null!=request.getAttribute("user")){//如果拦截器中存在user信息表明用户已经登录，则直接返回
@@ -251,6 +270,7 @@ public class DemoController {
         }else {//拦截器中不存在user信息，则表示用户未登录
             if(StringUtils.isNotEmpty(user.getLoginType())){
                 if("telephone".equalsIgnoreCase(user.getLoginType())){//登录类型为手机号
+                    user.setPhone(user.getTelephone());
                     //手机号是否在数据库中存在
                     Long result = userService.isExistUser(user);
                     if(result>0){//手机号已存在，则校验手机号和验证码是否匹配

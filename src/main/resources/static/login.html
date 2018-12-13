@@ -13,7 +13,7 @@
     <div ng-app="sso">
         <div ng-controller="LoginController">
             <div class="w">
-                <div style="box-shadow: 0 2px 8px #bbb;">
+                <div ng-class="{'main-shadow':!vm.registerSuccess}">
                     <div class="top">
                         <img src="./images/logo-warter.png" class="logo f-left" alt="">
                         <span style="" class="login-title">Water shopping</span>
@@ -22,7 +22,7 @@
                         <span>单点登录用于不同子系统之间的session共享</span>
                     </div>
                     <!--登录开始-->
-                    <div class="main-login" ng-show="vm.register==false">
+                    <div class="main-login" ng-show="vm.register==false&&!vm.registerSuccess">
                         <div class="main-login-title">
 
                             <div class="login-username " ng-class="{'active':vm.loginType=='username'}" ng-click="changeTab('username')">
@@ -51,30 +51,29 @@
                                 </div>
                             </div>
                         </div>
-
+                        <!--手机号登录-->
                         <div class="phone" ng-if="vm.loginType=='phone'">
                             <!--手机号登录-->
                             <div class="phone-number">
-                                <div class="phone-temp">
-                                    <div class=" form-group">
-                                        <input type="text" class="form-control phone-input" name="username" placeholder="手机号：" ng-model="vm.telephone" ng-maxlength="13">
-                                    </div>
+                                <div class="phone-temp form-group" ng-class="{'has-error':login.telephoneError}">
+                                        <input type="text" class="form-control phone-input" name="username" placeholder="手机号：" ng-model="login.telephone" ng-maxlength="13">
                                 </div>
                                 <div class="phone-icon">
                                     <span class="glyphicon glyphicon-phone"></span>
                                 </div>
+                                <span class="telephoneError">{{login.telephoneError}}</span>
                             </div>
                             <div class="password">
                                 <div class="password-temp ">
-                                    <div class="username-input-parent form-group has-error">
-                                        <input type="text" class="form-control username-input verification-code" name="username" placeholder="验证码：" ng-model="vm.code">
+                                    <div class="username-input-parent form-group" ng-class="{'has-error':login.checkCodeError}">
+                                        <input type="text" class="form-control username-input verification-code" name="username" placeholder="验证码：" ng-model="login.code">
                                     </div>
-
-                                    <input type="text" class="form-control post-code display-inline-block" readonly ng-model="vm.codeMsg" ng-click="getCode()" ng-disabled="canClick" ng-dblclick="">
+                                    <input type="text" class="form-control post-code display-inline-block" readonly ng-model="vm.codeMsg2" ng-click="getCode()" ng-disabled="canClick2" ng-dblclick="">
                                 </div>
                                 <div class="password-icon">
                                     <span class="glyphicon glyphicon-camera"></span>
                                 </div>
+                                <span class="telephoneError">{{login.checkCodeError}}</span>
                             </div>
                             <!--账号密码登录-->
                         </div>
@@ -88,7 +87,7 @@
                         </div>
                         <div class="login">
                             <div class="mt-24">
-                                <button class="btn btn-primary"  style="width: 100%;" ng-click="login()">登&nbsp;录</button>
+                                <button class="btn btn-primary"  style="width: 100%;" ng-click="doLogin()">登&nbsp;录</button>
                             </div>
                             <div class="mt-24">
                                 <div class="third-login">
@@ -111,13 +110,19 @@
                     </div>
                     <!--登录结束-->
                     <!--注册开始-->
-                    <div class="main-login" ng-show="vm.register==true">
+                    <div class="main-login" ng-show="vm.register==true&&!vm.registerSuccess">
                         <div class="main-content">
                             <div class="register-title">
                                 <span class="register-title-description">注册</span>
                             </div>
                             <div class="register-telephone">
-                                <div class="form-group" ng-class="{'has-error':register.telephoneError!=null}">
+                                <div class="form-group" ng-class="{'has-error':register.usernameError}">
+                                    <input type="text" class="form-control  register-telephone-input" name="username" placeholder="用户名：" ng-model="register.username" ng-maxlength="50">
+                                    <span style="color: red">{{register.usernameError}}</span>
+                                </div>
+                            </div>
+                            <div class="register-telephone">
+                                <div class="form-group" ng-class="{'has-error':register.telephoneError}" style="margin-top: 24px;">
                                     <input type="text" class="form-control  register-telephone-input" name="username" placeholder="手机号：" ng-model="register.telephone" ng-maxlength="50">
                                     <span style="color: red">{{register.telephoneError}}</span>
                                 </div>
@@ -141,7 +146,7 @@
                                 <button class="btn btn-primary"  style="width: 184px;" ng-click="doRegister()">注&nbsp;册</button>
                                 <span class="has-login-info" ng-click="vm.register=false">使用已有账户登录</span>
                             </div>
-                            <div style="height: 40px;"></div>
+                            <div style="height: 10px;"></div>
                         </div>
                         <div class="footer">
                             <div class="mt-24">
@@ -154,11 +159,37 @@
                         </div>
                     </div>
                     <!--注册结束-->
-                </div>
+                    <!--注册成功开始-->
+                    <div class="register-success" ng-show="vm.registerSuccess">
+                        <div class="register-success-bg">
+                            <div class="icon-register-success">
+                                <icon class="glyphicon glyphicon-ok"></icon>
+                            </div>
+                        </div>
+                        <div class="register-success-info">
+                            您的账户：18896582701注册成功
+                        </div>
+                        <div class="register-success-description">
+                            您现在可以通过手机号及验证码的方式登录WATER SHOPPING
+                        </div>
+                        <div class="register-footer">
+                            <a href="#" class="btn btn-primary" ng-click="doLoginPage()">前往登录</a>
+                            <a href="#" class="btn btn-default ml-15"  ng-click="returnIndex()">返回首页</a>
+                        </div>
+                        <div class="footer">
+                            <div class="mt-24">
+                                <div class="copy-right">
+                                    Copyright©2018 zzb个人网站使用
+                                </div>
 
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--注册成功结束-->
+                </div>
             </div>
         </div>
     </div>
-
 </body>
 </html>
