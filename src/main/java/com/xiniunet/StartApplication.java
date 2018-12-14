@@ -32,7 +32,7 @@ import javax.servlet.MultipartConfigElement;
 @EnableJms//开启消息队列
 public class StartApplication {
     public static void main(String[] args) {
-
+        System.setProperty("es.set.netty.runtime.available.processors", "false");
         /*SpringApplication.run(DemoController.class,args);*/
         SpringApplication.run(StartApplication.class,args);
     }

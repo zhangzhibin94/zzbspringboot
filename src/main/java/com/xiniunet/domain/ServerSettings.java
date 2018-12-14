@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * 启动参数设置domain类
  */
 @Component
-@PropertySource({"classpath:application.properties"})
+@PropertySource({"classpath:config/application.properties"})
 @ConfigurationProperties
 public class ServerSettings {
     /**
