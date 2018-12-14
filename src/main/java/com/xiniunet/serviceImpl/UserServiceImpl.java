@@ -45,7 +45,12 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public RegisterCreateResponse register(User user) {
+
         RegisterCreateResponse response = new RegisterCreateResponse();
+        if(StringUtils.isNotEmpty(user.getUserName())){
+            response.addError(ErrorType.BUSINESS_ERROR,"用户名不能为空");
+            return response;
+        }
         //获取redis中的验证码
         String msg = jedisClient.get("register:" + user.getTelephone());
         LoginResponse loginResponse = this.checkCode(msg, user);
@@ -61,7 +66,7 @@ public class UserServiceImpl implements UserService {
             return response;
         }
         user.setId(CoreUtil.getId());
-        user.setUserName("zzb");
+//        user.setUserName("zzb");
         user.setPhone(user.getTelephone());
         long insert = userMapper.insert(user);
         if(insert>0){
